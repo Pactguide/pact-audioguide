@@ -1,0 +1,1 @@
+Inserire qui esclusivamente i file ufficiali autorizzati del PACT e del Ministero della Cultura.

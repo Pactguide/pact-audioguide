@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6f2638">
+  <meta name="description" content="Audioguide gratuite del Parco Archeologico di Cerveteri e Tarquinia">
+  <title>PACT Audioguide</title>
+  <style>
+    :root{
+      --wine:#6f2638;
+      --wine-dark:#4c1725;
+      --ochre:#bd873f;
+      --cream:#f5f0e7;
+      --paper:#fffdf9;
+      --ink:#272321;
+      --muted:#716a64;
+      --line:#ded5c8;
+      --shadow:0 16px 45px rgba(52,34,30,.13);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--cream);
+      color:var(--ink);
+      font-family:Arial,Helvetica,sans-serif;
+      line-height:1.55;
+    }
+    button,a,select{font:inherit}
+    button,a{touch-action:manipulation}
+    .topbar{
+      background:var(--wine-dark);
+      color:#fff;
+      padding:8px 18px;
+      text-align:center;
+      font-size:.83rem;
+      letter-spacing:.02em;
+    }
+    header{
+      position:sticky;top:0;z-index:20;
+      background:rgba(255,253,249,.96);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .head-inner{
+      max-width:1180px;margin:auto;padding:13px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+    }
+    .brand{display:flex;align-items:center;gap:13px;text-decoration:none;color:inherit}
+    .mark{
+      width:48px;height:48px;border-radius:50%;
+      display:grid;place-items:center;background:var(--wine);color:white;
+      font-weight:800;letter-spacing:-.08em;font-size:1.05rem;
+      box-shadow:inset 0 0 0 4px rgba(255,255,255,.15);
+    }
+    .brand strong{display:block;font-size:1.05rem}
+    .brand small{display:block;color:var(--muted);font-size:.75rem}
+    .lang-switch{display:flex;gap:5px;background:#eee7dc;padding:4px;border-radius:999px}
+    .lang-switch button{
+      border:0;background:transparent;border-radius:999px;
+      padding:7px 9px;font-weight:700;cursor:pointer;color:var(--muted)
+    }
+    .lang-switch button.active{background:var(--paper);color:var(--wine);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+    main{max-width:1180px;margin:auto;padding:28px 18px 64px}
+    .hero{
+      min-height:365px;border-radius:30px;overflow:hidden;
+      position:relative;display:flex;align-items:flex-end;
+      background:
+        linear-gradient(90deg,rgba(45,20,25,.88),rgba(76,23,37,.58),rgba(0,0,0,.1)),
+        radial-gradient(circle at 75% 25%,#ccaf74 0 9%,transparent 10%),
+        linear-gradient(145deg,#826c4e,#3d5448 55%,#2b382f);
+      box-shadow:var(--shadow);
+    }
+    .hero:after{
+      content:"";position:absolute;inset:0;opacity:.22;
+      background-image:repeating-linear-gradient(120deg,transparent 0 24px,rgba(255,255,255,.08) 25px 26px);
+    }
+    .hero-copy{position:relative;z-index:1;color:#fff;padding:38px;max-width:760px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.5);
+      border-radius:999px;padding:7px 12px;font-size:.84rem;font-weight:700
+    }
+    h1{font-family:Georgia,serif;font-size:clamp(2.2rem,6vw,4.7rem);line-height:1.02;margin:18px 0 14px}
+    .hero p{font-size:clamp(1rem,2vw,1.25rem);max-width:650px;margin:0}
+    .section-title{font-family:Georgia,serif;font-size:clamp(1.8rem,4vw,2.7rem);margin:46px 0 20px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{
+      background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+      overflow:hidden;box-shadow:0 8px 25px rgba(54,38,32,.08);display:flex;flex-direction:column
+    }
+    .card-art{height:170px;position:relative}
+    .card-art:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.45))}
+    .banditaccia{background:linear-gradient(145deg,#7d8561,#263f32)}
+    .monterozzi{background:linear-gradient(145deg,#d2ad72,#754935)}
+    .mostra{background:linear-gradient(145deg,#675c70,#241a2f)}
+    .card-number{position:absolute;left:18px;bottom:15px;color:#fff;font-weight:700}
+    .card-body{padding:22px;display:flex;flex-direction:column;flex:1}
+    .card h2{font-family:Georgia,serif;font-size:1.5rem;line-height:1.15;margin:0 0 8px}
+    .card p{color:var(--muted);margin:0 0 22px}
+    .primary{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      background:var(--wine);color:#fff;border:0;border-radius:13px;padding:13px 17px;
+      text-decoration:none;font-weight:700;cursor:pointer;margin-top:auto
+    }
+    .primary:hover{background:var(--wine-dark)}
+    .route-head{
+      border-radius:27px;padding:28px;color:white;margin-bottom:22px;
+      background:linear-gradient(135deg,var(--wine-dark),var(--wine));
+      box-shadow:var(--shadow)
+    }
+    .route-head h1{font-size:clamp(2rem,5vw,3.5rem);margin:8px 0}
+    .back{
+      display:inline-flex;gap:7px;align-items:center;color:inherit;text-decoration:none;
+      font-weight:700;border-bottom:1px solid rgba(255,255,255,.5)
+    }
+    .route-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:22px}
+    .player-card,.index-card{
+      background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+      box-shadow:0 8px 25px rgba(54,38,32,.07)
+    }
+    .stop-image{
+      aspect-ratio:16/9;border-radius:17px;margin-bottom:20px;
+      display:grid;place-items:center;text-align:center;padding:20px;color:white;
+      background:linear-gradient(145deg,#77654e,#35493f);
+      font-family:Georgia,serif;font-size:1.5rem
+    }
+    .stop-meta{color:var(--ochre);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+    .player-card h2{font-family:Georgia,serif;font-size:clamp(1.8rem,4vw,2.5rem);margin:5px 0 14px}
+    audio{width:100%;margin:10px 0 18px}
+    .notice{background:#f1e8dc;border-left:4px solid var(--ochre);padding:13px 15px;border-radius:9px;color:#554b43;font-size:.93rem}
+    .navbuttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+    .secondary{
+      border:1px solid var(--wine);color:var(--wine);background:transparent;border-radius:12px;
+      padding:12px;text-align:center;text-decoration:none;font-weight:700
+    }
+    .index-card{align-self:start;position:sticky;top:92px;max-height:calc(100vh - 115px);overflow:auto}
+    .index-card h3{font-family:Georgia,serif;font-size:1.35rem;margin:0 0 12px}
+    .stop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    .stop-grid a{
+      min-height:42px;display:grid;place-items:center;text-decoration:none;border:1px solid var(--line);
+      border-radius:10px;color:var(--ink);font-weight:700;background:#fff
+    }
+    .stop-grid a.active{background:var(--wine);color:white;border-color:var(--wine)}
+    footer{background:#2b2523;color:#eee7dd;padding:34px 18px}
+    .footer-inner{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    footer strong{font-family:Georgia,serif;font-size:1.18rem}
+    footer small{color:#c7bdb3}
+    .hidden{display:none!important}
+    @media(max-width:850px){
+      .cards{grid-template-columns:1fr}
+      .card{display:grid;grid-template-columns:130px 1fr}
+      .card-art{height:auto;min-height:200px}
+      .route-layout{grid-template-columns:1fr}
+      .index-card{position:static;max-height:none}
+    }
+    @media(max-width:540px){
+      .brand small{display:none}
+      .head-inner{padding:10px 12px}
+      .mark{width:42px;height:42px}
+      main{padding:18px 12px 45px}
+      .hero{min-height:430px;border-radius:22px}
+      .hero-copy{padding:25px}
+      .cards{gap:14px}
+      .card{display:block}
+      .card-art{height:145px;min-height:0}
+      .route-head{padding:22px 18px}
+      .player-card,.index-card{padding:16px}
+      .navbuttons{grid-template-columns:1fr}
+      .stop-grid{grid-template-columns:repeat(5,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar" id="topbar"></div>
+  <header>
+    <div class="head-inner">
+      <a class="brand" href="./" aria-label="PACT Audioguide home">
+        <span class="mark">PA</span>
+        <span><strong id="brand"></strong><small id="institution"></small></span>
+      </a>
+      <div class="lang-switch" aria-label="Selezione lingua">
+        <button data-lang="it">IT</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="fr">FR</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="homeView">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">🎧 <span id="free"></span></span>
+          <h1 id="heroTitle"></h1>
+          <p id="intro"></p>
+        </div>
+      </div>
+      <h2 class="section-title" id="chooseTitle">Percorsi disponibili</h2>
+      <div class="cards" id="routeCards"></div>
+    </section>
+
+    <section id="routeView" class="hidden">
+      <div class="route-head">
+        <a class="back" href="./">← <span id="back"></span></a>
+        <h1 id="routeTitle"></h1>
+        <p id="routeSubtitle"></p>
+      </div>
+      <div class="route-layout">
+        <article class="player-card">
+          <div class="stop-image" id="stopImage"></div>
+          <div class="stop-meta" id="stopMeta"></div>
+          <h2 id="stopTitle"></h2>
+          <p id="listen"></p>
+          <audio id="audioPlayer" controls preload="metadata">
+            <source id="audioSource" src="" type="audio/mpeg">
+          </audio>
+          <div class="notice" id="placeholder"></div>
+          <h3 id="descriptionTitle"></h3>
+          <p id="stopText"></p>
+          <div class="navbuttons">
+            <a class="secondary" id="prevLink" href="#"></a>
+            <a class="primary" id="nextLink" href="#"></a>
+          </div>
+        </article>
+        <aside class="index-card">
+          <h3 id="menuTitle"></h3>
+          <div class="stop-grid" id="stopGrid"></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div><strong id="footerInstitution"></strong><br><small id="official"></small></div>
+      <small>© PACT · Audioguide</small>
+    </div>
+  </footer>
+
+<script>
+const ROUTES = [{"id": "banditaccia", "title": {"it": "Necropoli della Banditaccia", "en": "Banditaccia Necropolis", "fr": "Nécropole de la Banditaccia"}, "subtitle": {"it": "Cerveteri · 20 tappe", "en": "Cerveteri · 20 stops", "fr": "Cerveteri · 20 étapes"}, "stops": 20, "langs": ["it", "en", "fr"], "accent": "banditaccia"}, {"id": "monterozzi", "title": {"it": "Necropoli dei Monterozzi", "en": "Monterozzi Necropolis", "fr": "Nécropole des Monterozzi"}, "subtitle": {"it": "Tarquinia · 27 tappe", "en": "Tarquinia · 27 stops", "fr": "Tarquinia · 27 étapes"}, "stops": 27, "langs": ["it", "en", "fr"], "accent": "monterozzi"}, {"id": "regno-ombre", "title": {"it": "In viaggio nel Regno delle Ombre", "en": "Journey into the Kingdom of Shadows"}, "subtitle": {"it": "Mostra temporanea · 18 tappe", "en": "Temporary exhibition · 18 stops"}, "stops": 18, "langs": ["it", "en"], "accent": "mostra"}];
+const T = {"it": {"brand": "PACT Audioguide", "institution": "Parco Archeologico di Cerveteri e Tarquinia", "intro": "Scegli un percorso e lasciati guidare alla scoperta del patrimonio etrusco.", "free": "Servizio gratuito", "select": "Apri il percorso", "back": "Torna ai percorsi", "stop": "Tappa", "of": "di", "listen": "Ascolta l’audioguida", "description": "Testo della tappa", "placeholder": "In questa versione iniziale sono predisposti gli spazi per audio, immagine e testo definitivo della tappa.", "prev": "Tappa precedente", "next": "Tappa successiva", "menu": "Indice delle tappe", "language": "Lingua", "official": "Progetto realizzato dal personale del PACT", "help": "Per ascoltare, seleziona la lingua e premi il pulsante Play.", "home": "Home"}, "en": {"brand": "PACT Audio Guides", "institution": "Archaeological Park of Cerveteri and Tarquinia", "intro": "Choose a route and discover the Etruscan heritage through our audio guides.", "free": "Free service", "select": "Open route", "back": "Back to routes", "stop": "Stop", "of": "of", "listen": "Listen to the audio guide", "description": "Stop description", "placeholder": "This initial version includes prepared spaces for the final audio, image and text of each stop.", "prev": "Previous stop", "next": "Next stop", "menu": "Stops index", "language": "Language", "official": "A project created by PACT staff", "help": "Select a language and press Play to listen.", "home": "Home"}, "fr": {"brand": "Audioguides PACT", "institution": "Parc archéologique de Cerveteri et Tarquinia", "intro": "Choisissez un parcours et découvrez le patrimoine étrusque grâce à nos audioguides.", "free": "Service gratuit", "select": "Ouvrir le parcours", "back": "Retour aux parcours", "stop": "Étape", "of": "sur", "listen": "Écouter l’audioguide", "description": "Texte de l’étape", "placeholder": "Cette première version contient les emplacements prévus pour l’audio, l’image et le texte définitif de chaque étape.", "prev": "Étape précédente", "next": "Étape suivante", "menu": "Index des étapes", "language": "Langue", "official": "Un projet réalisé par le personnel du PACT", "help": "Sélectionnez la langue et appuyez sur Lecture.", "home": "Accueil"}};
+
+const qs = new URLSearchParams(location.search);
+let lang = localStorage.getItem("pact-lang") || "it";
+let routeId = qs.get("route");
+let stop = Math.max(1, parseInt(qs.get("stop") || "1", 10));
+
+function tr(key){ return (T[lang] && T[lang][key]) || T.it[key] || key; }
+function localized(obj){ return obj[lang] || obj.it || obj.en || Object.values(obj)[0]; }
+
+function setLanguage(next){
+  lang = next;
+  localStorage.setItem("pact-lang", lang);
+  document.documentElement.lang = lang;
+  render();
+}
+
+function routeUrl(id, n=1){ return `?route=${encodeURIComponent(id)}&stop=${n}`; }
+
+function renderHeader(){
+  document.getElementById("topbar").textContent = tr("official");
+  document.getElementById("brand").textContent = tr("brand");
+  document.getElementById("institution").textContent = tr("institution");
+  document.getElementById("footerInstitution").textContent = tr("institution");
+  document.getElementById("official").textContent = tr("official");
+  document.querySelectorAll("[data-lang]").forEach(b=>{
+    b.classList.toggle("active", b.dataset.lang === lang);
+    b.onclick=()=>setLanguage(b.dataset.lang);
+  });
+}
+
+function renderHome(){
+  document.title = tr("brand");
+  document.getElementById("homeView").classList.remove("hidden");
+  document.getElementById("routeView").classList.add("hidden");
+  document.getElementById("free").textContent = tr("free");
+  document.getElementById("heroTitle").textContent = tr("brand");
+  document.getElementById("intro").textContent = tr("intro");
+  document.getElementById("chooseTitle").textContent =
+    lang==="en" ? "Available routes" : lang==="fr" ? "Parcours disponibles" : "Percorsi disponibili";
+
+  const cards = document.getElementById("routeCards");
+  cards.innerHTML = "";
+  ROUTES.forEach(r=>{
+    if(!r.langs.includes(lang) && lang==="fr") return;
+    const article=document.createElement("article");
+    article.className="card";
+    article.innerHTML=`
+      <div class="card-art ${r.accent}">
+        <div class="card-number">${r.stops} ${lang==="en"?"stops":lang==="fr"?"étapes":"tappe"}</div>
+      </div>
+      <div class="card-body">
+        <h2>${localized(r.title)}</h2>
+        <p>${localized(r.subtitle)}</p>
+        <a class="primary" href="${routeUrl(r.id)}">${tr("select")} →</a>
+      </div>`;
+    cards.appendChild(article);
+  });
+}
+
+function renderRoute(){
+  const route = ROUTES.find(r=>r.id===routeId);
+  if(!route){ history.replaceState({}, "", "./"); routeId=null; renderHome(); return; }
+  if(!route.langs.includes(lang)) lang = route.langs[0];
+  stop=Math.min(route.stops,stop);
+  document.title = `${tr("stop")} ${stop} · ${localized(route.title)}`;
+  document.getElementById("homeView").classList.add("hidden");
+  document.getElementById("routeView").classList.remove("hidden");
+  document.getElementById("back").textContent=tr("back");
+  document.getElementById("routeTitle").textContent=localized(route.title);
+  document.getElementById("routeSubtitle").textContent=localized(route.subtitle);
+  document.getElementById("stopMeta").textContent=`${tr("stop")} ${stop} ${tr("of")} ${route.stops}`;
+  document.getElementById("stopTitle").textContent=`${tr("stop")} ${stop}`;
+  document.getElementById("stopImage").textContent=`${localized(route.title)} · ${tr("stop")} ${stop}`;
+  document.getElementById("listen").textContent=tr("listen");
+  document.getElementById("placeholder").textContent=tr("placeholder");
+  document.getElementById("descriptionTitle").textContent=tr("description");
+  document.getElementById("stopText").textContent=tr("placeholder");
+  document.getElementById("menuTitle").textContent=tr("menu");
+
+  const audio=`assets/audio/${route.id}/${lang}/${String(stop).padStart(2,"0")}.mp3`;
+  document.getElementById("audioSource").src=audio;
+  document.getElementById("audioPlayer").load();
+
+  const prev=Math.max(1,stop-1), next=Math.min(route.stops,stop+1);
+  const prevLink=document.getElementById("prevLink");
+  const nextLink=document.getElementById("nextLink");
+  prevLink.textContent=`← ${tr("prev")}`;
+  nextLink.textContent=`${tr("next")} →`;
+  prevLink.href=routeUrl(route.id,prev);
+  nextLink.href=routeUrl(route.id,next);
+  prevLink.style.visibility=stop===1?"hidden":"visible";
+  nextLink.style.visibility=stop===route.stops?"hidden":"visible";
+
+  const grid=document.getElementById("stopGrid");
+  grid.innerHTML="";
+  for(let i=1;i<=route.stops;i++){
+    const a=document.createElement("a");
+    a.href=routeUrl(route.id,i);
+    a.textContent=i;
+    a.classList.toggle("active",i===stop);
+    a.setAttribute("aria-label",`${tr("stop")} ${i}`);
+    grid.appendChild(a);
+  }
+}
+
+function render(){
+  renderHeader();
+  routeId = new URLSearchParams(location.search).get("route");
+  stop = Math.max(1, parseInt(new URLSearchParams(location.search).get("stop") || "1",10));
+  if(routeId) renderRoute(); else renderHome();
+}
+window.addEventListener("popstate",render);
+render();
+</script>
+</body>
+</html>
