@@ -1,0 +1,17 @@
+PACT AUDIOGUIDE — PACCHETTO 1 AGGIORNATO
+Sorgente verificata: FILE ORDINATI PER SITO.zip
+
+Contenuto:
+- index e interfaccia grafica invariati
+- immagini ottimizzate per il web
+- loghi PACT e Ministero della Cultura
+- database e collegamenti predisposti per gli audio
+
+Correzioni confermate:
+- Tomba dei Doli esclusa e immagine assente
+- Tomba dei Rilievi esterno collegata al file 06
+- Tomba dei Rilievi interno collegata al file 07
+- Fondazione Lerici esclusa dal percorso Monterozzi
+- numerazione Monterozzi resa continua sul sito
+
+Nota: questo pacchetto non contiene ancora gli audio. I collegamenti audio sono già predisposti e verranno popolati con i pacchetti successivi.

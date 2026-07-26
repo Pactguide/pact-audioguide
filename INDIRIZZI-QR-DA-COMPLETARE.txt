@@ -1,0 +1,28 @@
+PACT AUDIOGUIDE – MODELLO INDIRIZZI QR
+
+Sostituire BASE_URL con l’indirizzo GitHub Pages definitivo, senza slash finale.
+
+NECROPOLI – QR DI PERCORSO
+Banditaccia, percorso interno: BASE_URL/#route/banditaccia-interno
+Banditaccia, percorso esterno: BASE_URL/#route/banditaccia-esterno
+Monterozzi: BASE_URL/#route/monterozzi
+
+MOSTRA – UN QR PER OGNI TRACCIA
+01. Testina in bronzo: BASE_URL/#stop/mostra/0
+02. Tomba Bruschi: BASE_URL/#stop/mostra/1
+03. Panoplia del guerriero etrusco: BASE_URL/#stop/mostra/2
+04. Tomba Golini II: BASE_URL/#stop/mostra/3
+05. Anfora con centauromachia: BASE_URL/#stop/mostra/4
+06. Tomba Golini I: BASE_URL/#stop/mostra/5
+07. Testo LIS: BASE_URL/#stop/mostra/6
+08. Banchetto: BASE_URL/#stop/mostra/7
+09. Cibo: BASE_URL/#stop/mostra/8
+10. Musica: BASE_URL/#stop/mostra/9
+11. Servitori: BASE_URL/#stop/mostra/10
+12. Ade e Persefone: BASE_URL/#stop/mostra/11
+13. Demoni: BASE_URL/#stop/mostra/12
+14. Magistrato: BASE_URL/#stop/mostra/13
+15. Apparitores: BASE_URL/#stop/mostra/14
+16. Sella curulis: BASE_URL/#stop/mostra/15
+17. Strumenti musicali: BASE_URL/#stop/mostra/16
+18. Armi: BASE_URL/#stop/mostra/17

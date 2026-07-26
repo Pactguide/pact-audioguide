@@ -1,0 +1,20 @@
+PACT AUDIOGUIDE – REPORT PACCHETTO 2
+
+Audio collegati: 216
+Problemi rilevati: 0
+Dimensione audio: 401.2 MB
+
+CONTROLLO PER PERCORSO E LINGUA
+- banditaccia-interno / it: 20 OK, 0 problemi
+- banditaccia-interno / en: 20 OK, 0 problemi
+- banditaccia-interno / fr: 20 OK, 0 problemi
+- banditaccia-esterno / it: 13 OK, 0 problemi
+- banditaccia-esterno / en: 13 OK, 0 problemi
+- banditaccia-esterno / fr: 13 OK, 0 problemi
+- monterozzi / it: 27 OK, 0 problemi
+- monterozzi / en: 27 OK, 0 problemi
+- monterozzi / fr: 27 OK, 0 problemi
+- mostra / it: 18 OK, 0 problemi
+- mostra / en: 18 OK, 0 problemi
+
+Esito: tutti gli audio previsti risultano presenti e collegati.
