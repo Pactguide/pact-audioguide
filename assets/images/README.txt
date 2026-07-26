@@ -1,1 +1,0 @@
-Cartella predisposta per le immagini delle tappe.
